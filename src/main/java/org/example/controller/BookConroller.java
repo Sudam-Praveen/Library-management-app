@@ -27,4 +27,12 @@ public class BookConroller {
     public List<BookEntity> getAllBooks(){
       return bookService.getBooks();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id){
+        if( bookService.deleteBook(id)){
+           return "Deleted";
+        }
+      return  "Not Deleted";
+    }
 }

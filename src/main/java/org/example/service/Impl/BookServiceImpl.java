@@ -49,4 +49,15 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public BookEntity searchBook(Long id) {
+        Optional<BookEntity> book = bookRepository.findById(id);
+        if(book.isPresent()) {
+            BookEntity bookEntity = book.get();
+            return bookEntity;
+        }else{
+            return null;
+        }
+    }
+
 }

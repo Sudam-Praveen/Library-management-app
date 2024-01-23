@@ -1,21 +1,30 @@
 package org.example.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.dto.Book;
 import org.example.entity.BookEntity;
 import org.example.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
+@RequiredArgsConstructor
 public class BookConroller {
-    @Autowired
-    BookService bookService;
-    @PostMapping
+
+   final BookService bookService;
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public BookEntity addBook(@RequestBody Book book){
        return bookService.addBook(book);
+    }
+
+
+    @GetMapping("/all")
+    public List<BookEntity> getAllBooks(){
+      return bookService.getBooks();
     }
 }

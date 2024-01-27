@@ -17,9 +17,10 @@ public class BookServiceImpl implements BookService {
     BookRepository bookRepository;
     @Autowired
     ObjectMapper objectMapper;
-    public BookEntity addBook(Book book){
+
+    public BookEntity addBook(Book book) {
         BookEntity bookEntity = objectMapper.convertValue(book, BookEntity.class);
-       return bookRepository.save(bookEntity);
+        return bookRepository.save(bookEntity);
 
     }
 
@@ -41,10 +42,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public boolean deleteBook(Long id) {
         Optional<BookEntity> book = bookRepository.findById(id);
-        if(book.isPresent()){
+        if (book.isPresent()) {
             bookRepository.deleteById(id);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -52,10 +53,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookEntity searchBook(Long id) {
         Optional<BookEntity> book = bookRepository.findById(id);
-        if(book.isPresent()) {
+        if (book.isPresent()) {
             BookEntity bookEntity = book.get();
             return bookEntity;
-        }else{
+        } else {
             return null;
         }
     }

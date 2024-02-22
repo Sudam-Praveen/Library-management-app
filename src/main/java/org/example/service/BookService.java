@@ -11,4 +11,5 @@ public interface BookService {
     public List<BookEntity> getBooks();
     public boolean deleteBook(Long id);
     public BookEntity searchBook(Long id);
+    public BookEntity updateBook(Book book);
 }

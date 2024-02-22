@@ -69,4 +69,9 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    public BookEntity updateBook(Book book){
+        BookEntity bookEntity = objectMapper.convertValue(book, BookEntity.class);
+        return bookRepository.save(bookEntity);
+    }
+
 }

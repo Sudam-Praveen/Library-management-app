@@ -46,6 +46,11 @@ public class BookConroller {
 
 
     }
+    @PutMapping("/update")
+    public ResponseEntity<BookEntity> updateBook(@RequestBody Book book){
+        BookEntity updatedBook = bookService.updateBook(book);
+        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
+    }
 
 
 }

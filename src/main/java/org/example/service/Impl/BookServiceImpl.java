@@ -19,6 +19,14 @@ public class BookServiceImpl implements BookService {
     ObjectMapper objectMapper;
 
     public BookEntity addBook(Book book) {
+
+
+        List<BookEntity> all = bookRepository.findAll();
+        for (BookEntity theBook:all) {
+            if(theBook.getTitle().equals(book.getTitle())){
+                return null;
+            }
+        }
         BookEntity bookEntity = objectMapper.convertValue(book, BookEntity.class);
         return bookRepository.save(bookEntity);
 

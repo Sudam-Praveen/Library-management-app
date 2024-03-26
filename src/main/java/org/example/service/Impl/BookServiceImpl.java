@@ -6,6 +6,8 @@ import org.example.entity.BookEntity;
 import org.example.repository.BookRepository;
 import org.example.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,6 @@ public class BookServiceImpl implements BookService {
     ObjectMapper objectMapper;
 
     public BookEntity addBook(Book book) {
-
 
         List<BookEntity> all = bookRepository.findAll();
         for (BookEntity theBook:all) {
@@ -48,24 +49,24 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean deleteBook(Long id) {
+    public ResponseEntity<?> deleteBook(Long id) {
         Optional<BookEntity> book = bookRepository.findById(id);
         if (book.isPresent()) {
             bookRepository.deleteById(id);
-            return true;
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted");
         } else {
-            return false;
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not a record to Delete");
         }
     }
 
     @Override
-    public BookEntity searchBook(Long id) {
+    public ResponseEntity<?> searchBook(Long id) {
         Optional<BookEntity> book = bookRepository.findById(id);
         if (book.isPresent()) {
             BookEntity bookEntity = book.get();
-            return bookEntity;
+            return ResponseEntity.status(HttpStatus.OK).body(bookEntity);
         } else {
-            return null;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
         }
     }
 

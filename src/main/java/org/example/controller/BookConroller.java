@@ -20,36 +20,35 @@ public class BookConroller {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BookEntity> addBook(@RequestBody Book book) {
+    public ResponseEntity<?> addBook(@RequestBody Book book) {
         BookEntity bookEntity = bookService.addBook(book);
-        return new ResponseEntity<>(bookEntity,HttpStatus.OK);
+        return  ResponseEntity.ok(bookEntity);
     }
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<BookEntity>> getAllBooks() {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getAllBooks() {
         List<BookEntity> books = bookService.getBooks();
-        return  new ResponseEntity<>(books,HttpStatus.OK);
+        return   ResponseEntity.ok(books);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable("id") Long id) {
-        return bookService.deleteBook(id) ? new ResponseEntity<>("Deleted", HttpStatus.OK) :
-                new ResponseEntity<>("Not Deleted", HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> deleteBook(@PathVariable("id") Long id) {
+        return bookService.deleteBook(id);
 
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<BookEntity> getBookById(@PathVariable("id") Long id)  {
-        return bookService.searchBook(id) != null ? new ResponseEntity<>(bookService.searchBook(id), HttpStatus.OK) :
-                new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> getBookById(@PathVariable("id") Long id)  {
+        return bookService.searchBook(id);
 
 
     }
     @PutMapping("/update")
-    public ResponseEntity<BookEntity> updateBook(@RequestBody Book book){
+    public ResponseEntity<?> updateBook(@RequestBody Book book){
         BookEntity updatedBook = bookService.updateBook(book);
-        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBook);
     }
 
 
